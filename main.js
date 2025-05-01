@@ -8,19 +8,25 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load('assets/images/fur.jpg');
+
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = [
-    new THREE.MeshBasicMaterial({ color: 0xffd700 }),
-    new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-    new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-    new THREE.MeshBasicMaterial({ color: 0xff00ff }),
-    new THREE.MeshBasicMaterial({ color: 0x00ffff })
+    new THREE.MeshBasicMaterial({ map: texture }),
+    new THREE.MeshBasicMaterial({ map: texture }),
+    new THREE.MeshBasicMaterial({ map: texture}),
+    new THREE.MeshBasicMaterial({ map: texture }),
+    new THREE.MeshBasicMaterial({ map: texture }),
+    new THREE.MeshBasicMaterial({ map: texture }),
+    new THREE.MeshBasicMaterial({ map: texture })
 ];
 const cube = new THREE.Mesh( geometry, material );
-const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(10, 10, 10);
-scene.add(light);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5); // position of light
+scene.add(directionalLight);
+
+
 scene.add( cube );
 
 camera.position.z = 5;
